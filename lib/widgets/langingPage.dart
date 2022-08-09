@@ -6,6 +6,11 @@ import 'package:queuesim/pages/directLandingPage.dart';
 import 'package:queuesim/pages/indirectLandingPage.dart';
 import 'package:queuesim/widgets/button.dart';
 import 'package:queuesim/widgets/paragraph.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert' as convert;
+import 'dart:convert';
+import 'package:universal_io/io.dart';
+import '../model/ExcelGet.dart';
 
 class largeLanding extends StatelessWidget {
   const largeLanding({Key? key}) : super(key: key);
@@ -13,6 +18,34 @@ class largeLanding extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var state = Provider.of<AppState>((context), listen: false);
+
+    List<GetExcel> data = [];
+    getDataFromSheet() async {
+      var url = Uri.parse(
+          "https://script.google.com/macros/s/AKfycbwcN-ioRZjXHFujeawbkPUPlt_OCHX5-gRIBrDKLo_gOYyvBoDOSCzweRTW_DtMOk3N/exec");
+
+      var response = await http.get(url);
+      try {
+        if (response.statusCode == 200) {
+          String data1 = response.body;
+          var decodedData = convert.jsonDecode(data1);
+          return decodedData.forEach((element) {
+            GetExcel getExcel = new GetExcel();
+            getExcel.ArrivalTime = element['ArrivalTime'];
+            getExcel.ServiceTime = element['ServiceTime'];
+            state.InterArrivalList.add(getExcel.ArrivalTime!.toDouble());
+            state.ServiceList.add(getExcel.ServiceTime!.toDouble());
+            print(state.InterArrivalList);
+            print("object");
+          });
+        } else {
+          return print('failed');
+        }
+      } catch (e) {
+        return print('failed');
+      }
+    }
+
     return Scaffold(
       body: Row(
         children: [
@@ -41,6 +74,7 @@ class largeLanding extends StatelessWidget {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => DirectLandingPage()));
+                        
                       },
                     ),
                   ],
@@ -69,11 +103,13 @@ class largeLanding extends StatelessWidget {
                     GestureDetector(
                       child: Button1(text: "Indirect", R: 67, G: 162, B: 220),
                       onTap: () {
-                         Navigator.push(
+                        getDataFromSheet();
+                        print(state.InterArrivalList.length);
+                        print(state.ServiceList.length);
+                        Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => Indirect()));
-                        state.ServiceTime();
                       },
                     ),
                   ],
@@ -86,3 +122,4 @@ class largeLanding extends StatelessWidget {
     );
   }
 }
+

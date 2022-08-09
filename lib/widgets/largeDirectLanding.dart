@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:queuesim/controllers/stateProvider.dart';
 import 'package:queuesim/pages/directDashboard.dart';
+import 'package:queuesim/pages/directDashboardMulti.dart';
 import 'package:queuesim/pages/gg.dart';
 import 'package:queuesim/pages/mg.dart';
 import 'package:queuesim/widgets/button2.dart';
@@ -16,6 +17,7 @@ class LDL extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
           appBar: AppBar(),
           body: Container(
@@ -39,8 +41,8 @@ class ModelGetter extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 50.w, vertical: 50.h),
       child: Container(
-          width: 200.w,
-          height: 100.h,
+          width: 70.w,
+          height: 70.h,
           color: Colors.white,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -57,7 +59,7 @@ class ModelGetter extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               Paragraph(
-                                  para: "Enter value of inter arrival mean:",
+                                  para: "Enter value of arrival mean:",
                                   R: 67,
                                   G: 162,
                                   B: 220),
@@ -81,9 +83,16 @@ class ModelGetter extends StatelessWidget {
                               child: Text('Markoveon/Markoveon'),
                               onPressed: () {
                                 state.MM();
-                                Navigator.push(
+                                if (state.servers==1) {
+                                  Navigator.push(
                                 context,
                                 MaterialPageRoute(builder: (context) => DirectDashboard()),);
+                                }
+                                else{
+                                  Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => DirectDashboardMulti()),);
+                                }
                               },
                               style: ElevatedButton.styleFrom(
                                   primary: Color.fromRGBO(67, 162, 220, 1),

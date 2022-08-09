@@ -19,8 +19,8 @@ import 'package:queuesim/widgets/subheading2.dart';
 import 'package:queuesim/widgets/summary.dart';
 import 'package:queuesim/widgets/textfield.dart';
 
-class DirectDashboard extends StatelessWidget {
-  const DirectDashboard({Key? key}) : super(key: key);
+class DirectDashboardMulti extends StatelessWidget {
+  const DirectDashboardMulti({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +32,7 @@ class DirectDashboard extends StatelessWidget {
         
           appBar: AppBar(
              title: Text('Sample App'),
-          backgroundColor: Colors.teal,
+          backgroundColor: Colors.amber,
           ),
           body: Container(
             color: Color.fromRGBO(240, 242, 246, 1),
@@ -165,11 +165,11 @@ class DirectDashboard extends StatelessWidget {
                                               ],
                                             ),
                                             ServerBusy(
-                                              busyTime: state.singleServerUtilization,
+                                              busyTime: state.multiServerUtilization,
                                             ),
                                             Padding(
                                               padding: EdgeInsets.symmetric(
-                                                  horizontal: 25.w),
+                                                  horizontal: 35.w),
                                               child: Column(
                                                 children: [
                                                   Row(
@@ -177,14 +177,14 @@ class DirectDashboard extends StatelessWidget {
                                                       Head3(
                                                           heading: ((1 -
                                                             (state
-                                                                .singleServerUtilization))*100).toStringAsFixed(2)+'%',
+                                                                .multiServerUtilization))*100).toStringAsFixed(2)+'%',
                                                           R: 255,
                                                           G: 193,
                                                           B: 7),
                                                       IdlePerc(
                                                         idleTime: 1 -
                                                             (state
-                                                                .singleServerUtilization),
+                                                                .multiServerUtilization),
                                                       ),
                                                     ],
                                                   ),
@@ -216,18 +216,18 @@ class DirectDashboard extends StatelessWidget {
                                       padding: EdgeInsets.symmetric(
                                           horizontal: 0.w, vertical: 0.h),
                                       child: DirectInputContainer(
-                                          val: state.avgLengthSys_singleServer,
+                                          val: state.avgLengthSys_multiServer,
                                           IR: 55,
                                           IG: 57,
                                           IB: 59,
-                                          Headval: "Sytem Length:",
+                                          Headval: "System Length:",
                                           Unitval: "minutes"),
                                     ),
                                     Padding(
                                       padding: EdgeInsets.symmetric(
                                           horizontal: 0.w, vertical: 0.h),
                                       child: DirectInputContainer(
-                                        val: state.avgLengthQueue_singleServer,
+                                        val: state.avgLengthQueue_multiServer,
                                         IR: 39,
                                         IG: 91,
                                         IB: 212,
@@ -239,7 +239,7 @@ class DirectDashboard extends StatelessWidget {
                                       padding: EdgeInsets.symmetric(
                                           horizontal: 0.w, vertical: 0.h),
                                       child: DirectInputContainer(
-                                        val: state.avgWaitQueue_singleServer,
+                                        val: state.avgWaitQueue_multiServer,
                                         IR: 214,
                                         IG: 1,
                                         IB: 54,
@@ -251,7 +251,7 @@ class DirectDashboard extends StatelessWidget {
                                       padding: EdgeInsets.symmetric(
                                           horizontal: 0.w, vertical: 0.h),
                                       child: DirectInputContainer(
-                                        val: state.avgWaitSys_singleServer.toDouble(),
+                                        val: state.avgWaitSys_multiServer.toDouble(),
                                         IR: 276,
                                         IG: 176,
                                         IB: 1,
@@ -266,9 +266,9 @@ class DirectDashboard extends StatelessWidget {
                             SizedBox(height: 40.h,),
                             Padding(
                               padding: EdgeInsets.symmetric(horizontal: 10.w,vertical: 0.h),
-                              child: Summary(utilize: state.singleServerUtilization.toStringAsFixed(2), idle: ((1 -
+                              child: Summary(utilize: state.multiServerUtilization.toStringAsFixed(2), idle: ((1 -
                                                             (state
-                                                                .singleServerUtilization))*100).toStringAsFixed(2), lq: state.avgLengthQueue_singleServer.toStringAsFixed(2), wq: state.avgWaitQueue_singleServer.toStringAsFixed(2), ls: state.avgLengthSys_singleServer.toStringAsFixed(2), ws: state.avgWaitSys_singleServer.toStringAsFixed(2)),
+                                                                .multiServerUtilization))*100).toStringAsFixed(2), lq: state.avgLengthQueue_multiServer.toStringAsFixed(2), wq: state.avgWaitQueue_multiServer.toStringAsFixed(2), ls: state.avgLengthSys_multiServer.toStringAsFixed(2), ws: state.avgWaitSys_multiServer.toStringAsFixed(2)),
                             )
                           ],
                         ),

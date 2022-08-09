@@ -34,7 +34,7 @@ class ResponsiveWidget extends StatelessWidget {
       //   return mediumScreen;
       // }
       else{
-        return smallScreen;
+        return largeScreen;
       }
     });
   }
